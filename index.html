@@ -4,10 +4,10 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+		<title>Rust Introduction</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="description" content="Rust introduction for C/C++ developers">
+		<meta name="author" content="Tyler Hall">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -71,6 +71,19 @@
 				]
 			});
 
+			Reveal.addEventListener('ready', function(event) {
+				var codes = document.getElementsByTagName('code');
+				for (i = 0; i < codes.length; i++) {
+					code = codes[i];
+					if (!code.classList.contains("lang-rust"))
+						continue;
+					var playgroundLink = document.createElement('p');
+					codeurl = encodeURIComponent(code.textContent);
+					codeurl = "fn main() {%0a%0a" + codeurl + "%0a}";
+					playgroundLink.innerHTML = '<a href="https://play.rust-lang.org/?code=' + codeurl + '">Run</a>';
+					code.parentNode.insertBefore(playgroundLink, code.nextSibling);
+				}
+			});
 		</script>
 
 	</body>
