@@ -473,6 +473,82 @@ If-let can be used if you only care about one case.
 
 
 
+## Iterator Adapters
+- Chain multiple operations on a collection
+- Lazy evaluation
+```rust
+let v = [1, 2, 3, 4, 5];
+v.iter().map(|x| println!("{}", x));
+// No output...
+```
+```rust
+let v = 1..6;
+println!("{:?} = {:?}", v, v.clone().collect::<Vec<_>>());
+let w: Vec<_> = v.map(|x| 2 * x)
+                    .take(3)
+                    .collect();
+println!("{:?}", w);
+```
+
+https://doc.rust-lang.org/std/iter/
+
+Note:
+Functional language feature.
+Exist in other languages but Rust prevents iterator invalidation.
+Range expression is an iterator.
+Because collect() is generic, type can be specified at the call site or inferred from assignment and later usage.
+
+
+
+## Traits
+- Both static and dynamic dispatch supported
+
+```rust
+trait HasArea {
+    fn area(&self) -> f64;
+}
+
+struct Square {
+    width: f64,
+}
+
+impl HasArea for Square {
+    fn area(&self) -> f64 {
+        self.width * self.width
+    }
+}
+
+struct Rectangle {
+    width: f64,
+    length: f64,
+}
+
+impl HasArea for Rectangle {
+    fn area(&self) -> f64 {
+        self.width * self.length
+    }
+}
+
+fn print_area<T: HasArea + ?Sized>(shape: &T) {
+    println!("Shape area: {}", shape.area());
+}
+
+let square = Square { width: 10f64 };
+let rect = Rectangle { width: 10f64, length: 5f64 };
+print_area(&square);
+print_area(&rect);
+print_area(&square as &HasArea);
+print_area(&rect as &HasArea);
+```
+https://doc.rust-lang.org/book/traits.html
+
+Note:
+Traits are somewhat like interfaces in Java.
+Used with generics like in C++ or Java.
+In the assembly, you can see 3 instances of print_area are created. Two static and one dynamic.
+
+
+
 ## Built-in unit testing
 
 ```
@@ -566,81 +642,6 @@ int main(void)
 
 Note:
 rustc -C prefer-dynamic --crate-type=dylib lib.rs
-
-
-## Iterator Adapters
-- Chain multiple operations on a collection
-- Lazy evaluation
-```rust
-let v = [1, 2, 3, 4, 5];
-v.iter().map(|x| println!("{}", x));
-// No output...
-```
-```rust
-let v = 1..6;
-println!("{:?} = {:?}", v, v.clone().collect::<Vec<_>>());
-let w: Vec<_> = v.map(|x| 2 * x)
-                    .take(3)
-                    .collect();
-println!("{:?}", w);
-```
-
-https://doc.rust-lang.org/std/iter/
-
-Note:
-Functional language feature.
-Exist in other languages but Rust prevents iterator invalidation.
-Range expression is an iterator.
-Because collect() is generic, type can be specified at the call site or inferred from assignment and later usage.
-
-
-
-## Traits
-- Both static and dynamic dispatch supported
-
-```rust
-trait HasArea {
-    fn area(&self) -> f64;
-}
-
-struct Square {
-    width: f64,
-}
-
-impl HasArea for Square {
-    fn area(&self) -> f64 {
-        self.width * self.width
-    }
-}
-
-struct Rectangle {
-    width: f64,
-    length: f64,
-}
-
-impl HasArea for Rectangle {
-    fn area(&self) -> f64 {
-        self.width * self.length
-    }
-}
-
-fn print_area<T: HasArea + ?Sized>(shape: &T) {
-    println!("Shape area: {}", shape.area());
-}
-
-let square = Square { width: 10f64 };
-let rect = Rectangle { width: 10f64, length: 5f64 };
-print_area(&square);
-print_area(&rect);
-print_area(&square as &HasArea);
-print_area(&rect as &HasArea);
-```
-https://doc.rust-lang.org/book/traits.html
-
-Note:
-Traits are somewhat like interfaces in Java.
-Used with generics like in C++ or Java.
-In the assembly, you can see 3 instances of print_area are created. Two static and one dynamic.
 
 
 
