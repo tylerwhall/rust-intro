@@ -201,9 +201,9 @@ https://doc.rust-lang.org/std/result/
 https://doc.rust-lang.org/std/macro.try!.html
 
 Note:
-Remove expect
-Remove unwap
-Write to root /
+Remove expect;
+Remove unwap;
+Write to root /;
 File automatically closed
 
 
@@ -342,8 +342,8 @@ http://rustbyexample.com/primitives/tuples.html
 
 Note:
 Tuples behave like in other languages like Python.
-Effectively anonymous structs
-Allow functions to easily return multiple values
+Effectively anonymous structs.
+Allow functions to easily return multiple values.
 
 
 
@@ -441,7 +441,7 @@ let number = match x {
 https://doc.rust-lang.org/book/patterns.html
 
 Note:
-Switch/Case on steroids
+Switch/Case on steroids.
 Implements a map in a single expression
 
 
@@ -588,9 +588,9 @@ println!("{:?}", w);
 https://doc.rust-lang.org/std/iter/
 
 Note:
-Functional language feature
-Exist in other languages but Rust prevents iterator invalidation
-Range expression is an iterator
+Functional language feature.
+Exist in other languages but Rust prevents iterator invalidation.
+Range expression is an iterator.
 Because collect() is generic, type can be specified at the call site or inferred from assignment and later usage.
 
 
@@ -666,6 +666,7 @@ do_install () {
 }
 ```
 https://github.com/jmesmon/meta-rust/blob/master/recipes-core/udev/libudev-rs_0.1.2.bb
+
 https://github.com/jmesmon/meta-rust
 
 
